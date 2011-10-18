@@ -1,0 +1,23 @@
+[
+    { "caption" : "-", "id" : "context-convert-en"},
+    {
+        "caption" : "Convert",
+        "id" : "context-convert",
+        "children" :
+        [
+            { "command": "convert_chars_to_html", "caption" : "Chars to Html Entities" },
+            { "command": "convert_html_to_chars", "caption" : "Html Entities to Chars" },
+            { "caption": "-" },
+            { "command": "convert_camel_underscores", "caption" : "Camel <-> Underscores" },
+            { "caption": "-" },
+            { "command": "convert_to_unicode_notation", "caption" : "To Unicode Notation" },
+            { "command": "convert_from_unicode_notation", "caption" : "From Unicode Notation" },
+            { "command": "convert_to_base64", "caption" : "To Base64" },
+            { "command": "convert_from_base64", "caption" : "From Base64" },
+            { "caption": "-" },
+            { "command": "convert_time_format", "caption": "Unixtime <-> Date" },
+            { "command": "insert_time_stamp", "caption": "Insert curent date" }
+        ]
+    },
+    { "caption" : "-", "id" : "context-convert-en"}
+]

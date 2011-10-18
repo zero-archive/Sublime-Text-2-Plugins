@@ -1,0 +1,6 @@
+[
+    { "keys": ["ctrl+alt+e"], "command": "convert_chars_to_html" },
+    { "keys": ["ctrl+alt+w"], "command": "convert_html_to_chars" },
+    { "keys": ["ctrl+alt+k"], "command": "convert_camel_underscores" },
+    { "keys": ["ctrl+alt+c"], "command": "convert_time_format" }
+]
