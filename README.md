@@ -3,7 +3,6 @@ Sublime Text 2 Plugins
 
 Несколько моих плагинов для Sublime Text 2
 
-
 ST2-Converter
 =============
 
@@ -20,18 +19,17 @@ ST2-Converter
 *  Unixtime <-> Date
 *  Insert curent date
 
+![ST2-Converter screenshot](https://github.com/dotzero/Sublime-Text-2-Plugins/blob/master/ST2-Converter.png)
+
 Установка
 ---------
 
 Скопировать папку **ST2-Converter** в Sublime Text 2 packages *(Sublime Text 2 > Preferences > Browse Packages...)*
 
-
-
 ST2-WhatTheCommit
 =================
 
 Плагин делает коммиты в GIT репозиторий используя в качестве комментарев сообщения с сайта http://whatthecommit.com/
-
 
 Установка
 ---------
