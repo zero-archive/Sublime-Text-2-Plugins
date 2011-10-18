@@ -19,7 +19,7 @@ ST2-Converter
 *  Unixtime <-> Date
 *  Insert curent date
 
-![ST2-Converter screenshot](https://github.com/dotzero/Sublime-Text-2-Plugins/blob/master/ST2-Converter.png)
+![converter screenshot](https://github.com/dotzero/Sublime-Text-2-Plugins/raw/master/ST2-Converter.png)
 
 Установка
 ---------
