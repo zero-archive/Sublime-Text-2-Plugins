@@ -1,9 +1,11 @@
-import sublime, sublime_plugin, os, urllib2, re
+import sublime
+import sublime_plugin
+import os
+import urllib2
+
 
 class WhatTheCommitCommand(sublime_plugin.TextCommand):
-    """
-    Random GIT commit messages from http://whatthecommit.com/
-    """
+    """Random GIT commit messages from http://whatthecommit.com/"""
     def run(self, edit):
         msg = self.get_msg()
 
@@ -13,12 +15,11 @@ class WhatTheCommitCommand(sublime_plugin.TextCommand):
             sublime.status_message('Commit with message: ' + msg)
 
     def get_msg(self):
-        req = urllib2.Request('http://whatthecommit.com/')
+        req = urllib2.Request('http://whatthecommit.com/index.txt')
 
         try:
             resp = urllib2.urlopen(req)
-            result = re.findall('<p>(.+)', resp.read())
-            return result[0] if (len(result[0]) > 0) else False
+            return resp.read().strip()
         except:
             return False
 

@@ -1,7 +1,13 @@
-import sublime, sublime_plugin
-import time, cgi, htmlentitydefs, re, base64
+import sublime
+import sublime_plugin
+import time
+import cgi
+import htmlentitydefs
+import re
+import base64
 from dateutil.parser import parse
 from datetime import datetime
+
 
 class ConvertCharsToHtmlCommand(sublime_plugin.TextCommand):
     """Convert Chars into XML/HTML Entities"""
@@ -47,7 +53,7 @@ class ConvertToUnicodeNotationCommand(sublime_plugin.TextCommand):
             if not region.empty():
                 text = ''
                 for c in self.view.substr(region):
-                    if not re.match(pattern, c) and ( c < 0x20 or c > 0x7e ):
+                    if not re.match(pattern, c) and (c < 0x20 or c > 0x7e):
                         text += '\\u{0:04X}'.format(ord(c))
                     else:
                         text += c
@@ -80,16 +86,14 @@ class ConvertFromBase64Command(sublime_plugin.TextCommand):
         for region in self.view.sel():
             if not region.empty():
                 try:
-                    text = base64.b64decode(self.view.substr(region).encode('ascii','ignore'))
+                    text = base64.b64decode(self.view.substr(region).encode('ascii', 'ignore'))
                     self.view.replace(edit, region, text.decode('utf-8'))
                 except:
                     pass
 
 
 class ConvertTimeFormatCommand(sublime_plugin.TextCommand):
-    '''
-    This will allow you to convert epoch to human readable date and vice versa
-    '''
+    """This will allow you to convert epoch to human readable date and vice versa"""
     DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
     def run(self, edit):
@@ -108,7 +112,6 @@ class ConvertTimeFormatCommand(sublime_plugin.TextCommand):
         sublime.status_message('Convert from epoch to human readable date.')
         return datetime.fromtimestamp(int(timestamp)).strftime(self.DATE_FORMAT)
 
-
     def to_unix(self, timestr):
         sublime.status_message('Convert from human readable date to epoch.')
         try:
@@ -118,12 +121,9 @@ class ConvertTimeFormatCommand(sublime_plugin.TextCommand):
 
 
 class InsertTimeStamp(sublime_plugin.TextCommand):
-    '''
-    This will allow you to insert timestamp to current position
-    '''
+    """This will allow you to insert timestamp to current position"""
     DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
     def run(self, edit):
         for region in self.view.sel():
             self.view.insert(edit, region.begin(), time.strftime(self.DATE_FORMAT))
-

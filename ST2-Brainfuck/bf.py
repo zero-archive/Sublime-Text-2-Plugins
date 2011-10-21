@@ -1,4 +1,7 @@
-import sublime, sublime_plugin, re
+import sublime
+import sublime_plugin
+import re
+
 
 class BrainfuckInterpretCommand(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -8,7 +11,7 @@ class BrainfuckInterpretCommand(sublime_plugin.TextCommand):
             self.code = re.sub(r'([^><\+\-\.,\[\]])', '', self.view.substr(self.view.sel()[0]))
             text = self.bf()
             self.view.replace(edit, self.view.sel()[0], text)
-            view.sel().clear()
+            self.view.sel().clear()
 
     def bf(self):
         self.cells = {}
@@ -24,7 +27,7 @@ class BrainfuckInterpretCommand(sublime_plugin.TextCommand):
         return self.output
 
     def interpret(self, command):
-        if not self.cells.has_key(self.pointer):
+        if not self.pointer in self.cells:
             self.cells[self.pointer] = 0
 
         if command == '>':
@@ -42,7 +45,7 @@ class BrainfuckInterpretCommand(sublime_plugin.TextCommand):
                 self.cells[self.pointer] -= 1
 
         elif command == '.':
-            if self.cells.has_key(self.pointer):
+            if self.pointer in self.cells:
                 self.output += chr(self.cells[self.pointer])
 
         elif command == ',':
@@ -67,6 +70,5 @@ class BrainfuckInterpretCommand(sublime_plugin.TextCommand):
         return True
 
     def read_input(self, input):
-        input = input.encode('ascii','ignore')
+        input = input.encode('ascii', 'ignore')
         self.cells[self.pointer] = ord(input[0]) if (len(input) > 0) else 0
-
