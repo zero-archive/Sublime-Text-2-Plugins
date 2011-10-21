@@ -1,0 +1,5 @@
+[
+    { "caption" : "-", "id" : "bf-end"},
+    { "command": "brainfuck_interpret", "caption" : "Brainfuck It!" },
+    { "caption" : "-", "id" : "bf-end"}
+]

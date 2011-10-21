@@ -1,11 +1,9 @@
 Sublime Text 2 Plugins
 ======================
-
 Несколько моих плагинов для Sublime Text 2
 
 ST2-Converter
 =============
-
 **ST2-Converter** это плагин облегчающий некоторые рутинные операции со стоками.
 В контекстное меню будут добавлены следующие параметры:
 
@@ -23,8 +21,32 @@ ST2-Converter
 
 Установка
 ---------
+Скопировать папку **ST2-Converter** в
 
-Скопировать папку **ST2-Converter** в Sublime Text 2 packages *(Sublime Text 2 > Preferences > Browse Packages...)*
+* Windows: `%APPDATA%/Roaming/Sublime Text 2/Packages/`
+* Mac: `~/Library/Application Support/Sublime Text 2/Packages/`
+* Linux: `~/.Sublime Text 2/Packages/`
+
+
+ST2-Brainfuck
+=============
+**ST2-Brainfuck** простой интерпретатор языка **Brainfuck** внутри **Sublime Text 2**
+
+![converter brainfuck](https://github.com/dotzero/Sublime-Text-2-Plugins/raw/master/ST2-Brainfuck.png)
+
+Установка
+---------
+Скопировать папку **ST2-Brainfuck** в
+
+* Windows: `%APPDATA%/Roaming/Sublime Text 2/Packages/`
+* Mac: `~/Library/Application Support/Sublime Text 2/Packages/`
+* Linux: `~/.Sublime Text 2/Packages/`
+
+Примеры
+-------
+
+    /ST2-Brainfuck/examples/
+
 
 ST2-WhatTheCommit
 =================
@@ -33,5 +55,8 @@ ST2-WhatTheCommit
 
 Установка
 ---------
+Скопировать папку **ST2-WhatTheCommit** в
 
-Скопировать папку **ST2-WhatTheCommit** в Sublime Text 2 packages *(Sublime Text 2 > Preferences > Browse Packages...)*
+* Windows: `%APPDATA%/Roaming/Sublime Text 2/Packages/`
+* Mac: `~/Library/Application Support/Sublime Text 2/Packages/`
+* Linux: `~/.Sublime Text 2/Packages/`
