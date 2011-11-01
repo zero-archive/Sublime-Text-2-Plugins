@@ -1,11 +1,10 @@
 Sublime Text 2 Plugins
 ======================
-Несколько моих плагинов для Sublime Text 2
+Несколько моих плагинов для редактора Sublime Text 2
 
 ST2-Converter
 =============
-**ST2-Converter** это плагин облегчающий некоторые рутинные операции со стоками.
-В контекстное меню будут добавлены следующие параметры:
+**ST2-Converter** это плагин облегчающий некоторые рутинные операции со стоками. В контекстное меню будут добавлены следующие параметры:
 
 *  Chars to Html Entities
 *  Html Entities to Chars
@@ -14,6 +13,7 @@ ST2-Converter
 *  From Unicode Notation
 *  To Base64
 *  From Base64
+*  Calculate MD5
 *  Unixtime <-> Date
 *  Insert curent date
 

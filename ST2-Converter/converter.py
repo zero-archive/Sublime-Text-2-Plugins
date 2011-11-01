@@ -5,6 +5,7 @@ import cgi
 import htmlentitydefs
 import re
 import base64
+from hashlib import md5
 from dateutil.parser import parse
 from datetime import datetime
 
@@ -90,6 +91,15 @@ class ConvertFromBase64Command(sublime_plugin.TextCommand):
                     self.view.replace(edit, region, text.decode('utf-8'))
                 except:
                     pass
+
+
+class ConvartMd5Command(sublime_plugin.TextCommand):
+    """Calculate MD5 hash"""
+    def run(self, edit):
+        for region in self.view.sel():
+            if not region.empty():
+                hash = md5(self.view.substr(region)).hexdigest()
+                self.view.replace(edit, region, hash)
 
 
 class ConvertTimeFormatCommand(sublime_plugin.TextCommand):
