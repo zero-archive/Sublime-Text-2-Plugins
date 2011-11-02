@@ -4,14 +4,21 @@ import re
 
 
 class BrainfuckInterpretCommand(sublime_plugin.TextCommand):
+    """Implementation of interpreter for Brainfuck"""
     def run(self, edit):
         self.view.run_command("select_all")
 
         if not self.view.sel()[0].empty():
             self.code = re.sub(r'([^><\+\-\.,\[\]])', '', self.view.substr(self.view.sel()[0]))
-            text = self.bf()
-            self.view.replace(edit, self.view.sel()[0], text)
-            self.view.sel().clear()
+
+            if self.code.count('[') != self.code.count(']'):
+                sublime.error_message("BrainfuckInterpret: Bad loops count")
+            elif self.code.count(','):
+                self.edit = edit
+                self.view.window().show_input_panel("BrainfuckInterpret type value:", '', self.read_input, None, None)
+            else:
+                self.view.replace(edit, self.view.sel()[0], self.bf())
+                self.view.sel().clear()
 
     def bf(self):
         self.cells = {}
@@ -49,7 +56,8 @@ class BrainfuckInterpretCommand(sublime_plugin.TextCommand):
                 self.output += chr(self.cells[self.pointer])
 
         elif command == ',':
-            self.view.window().show_input_panel("Type value:", '', self.read_input, None, None)
+            if self.input != []:
+                self.cells[self.pointer] = ord(self.input.pop(0))
 
         elif command == '[':
             if self.cells[self.pointer] == 0:
@@ -70,5 +78,6 @@ class BrainfuckInterpretCommand(sublime_plugin.TextCommand):
         return True
 
     def read_input(self, input):
-        input = input.encode('ascii', 'ignore')
-        self.cells[self.pointer] = ord(input[0]) if (len(input) > 0) else 0
+        self.input = list(input.encode('ascii', 'ignore'))
+        self.view.replace(self.edit, self.view.sel()[0], self.bf())
+        self.view.sel().clear()
