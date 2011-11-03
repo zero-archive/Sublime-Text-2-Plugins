@@ -14,7 +14,7 @@
             { "command": "convert_from_unicode_notation", "caption" : "From Unicode Notation" },
             { "command": "convert_to_base64", "caption" : "To Base64" },
             { "command": "convert_from_base64", "caption" : "From Base64" },
-            { "command": "convart_md5", "caption" : "Calculate MD5"},
+            { "command": "convert_md5", "caption" : "Calculate MD5"},
             { "caption": "-" },
             { "command": "convert_time_format", "caption": "Unixtime <-> Date" },
             { "command": "insert_time_stamp", "caption": "Insert curent date" }
