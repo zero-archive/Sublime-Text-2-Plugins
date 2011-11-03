@@ -1,10 +1,10 @@
 import sublime
 import sublime_plugin
 import time
-import cgi
 import htmlentitydefs
 import re
 import base64
+from cgi import escape
 from hashlib import md5
 from dateutil.parser import parse
 from datetime import datetime
@@ -15,7 +15,7 @@ class ConvertCharsToHtmlCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         for region in self.view.sel():
             if not region.empty():
-                self.view.replace(edit, region, cgi.escape(self.view.substr(region), True))
+                self.view.replace(edit, region, escape(self.view.substr(region), True))
 
 
 class ConvertHtmlToCharsCommand(sublime_plugin.TextCommand):
@@ -29,7 +29,7 @@ class ConvertHtmlToCharsCommand(sublime_plugin.TextCommand):
 
 
 class ConvertCamelUnderscoresCommand(sublime_plugin.TextCommand):
-    """Convert CamelCase to Underscores and vice versa"""
+    """Convert CamelCase to under_scores and vice versa"""
     def run(self, edit):
         for region in self.view.sel():
             if not region.empty():
@@ -93,7 +93,7 @@ class ConvertFromBase64Command(sublime_plugin.TextCommand):
                     pass
 
 
-class ConvartMd5Command(sublime_plugin.TextCommand):
+class ConvertMd5Command(sublime_plugin.TextCommand):
     """Calculate MD5 hash"""
     def run(self, edit):
         for region in self.view.sel():
