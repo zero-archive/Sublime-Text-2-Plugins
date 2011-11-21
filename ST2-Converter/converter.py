@@ -104,12 +104,11 @@ class ConvertMd5Command(sublime_plugin.TextCommand):
 
 class ConvertTimeFormatCommand(sublime_plugin.TextCommand):
     """This will allow you to convert epoch to human readable date and vice versa"""
-
     def run(self, edit):
         for region in self.view.sel():
             if not region.empty():
                 text = self.view.substr(region)
-                result = self.from_unix(text) if re.match(ur'^([0-9\.]+)$', text) else self.to_unix(text)
+                result = self.from_unix(text) if re.match(ur'^([0-9]+)$', text) else self.to_unix(text)
 
                 if result:
                     self.view.replace(edit, region, result)
@@ -118,12 +117,12 @@ class ConvertTimeFormatCommand(sublime_plugin.TextCommand):
 
     def from_unix(self, timestamp):
         sublime.status_message('Convert from epoch to human readable date.')
-        return datetime.fromtimestamp(float(timestamp)).strftime("%Y-%m-%d %H:%M")
+        return datetime.fromtimestamp(int(timestamp)).strftime("%Y-%m-%d %H:%M")
 
     def to_unix(self, timestr):
         sublime.status_message('Convert from human readable date to epoch.')
         try:
-            return str(time.mktime(parse(timestr).timetuple()))
+            return '%d' % (time.mktime(parse(timestr).timetuple()))
         except:
             return False
 
