@@ -5,6 +5,9 @@
         "id" : "context-convert",
         "children" :
         [
+            { "command": "convert_tabs_to_spaces", "caption" : "Tabs to Spaces" },
+            { "command": "convert_spaces_to_tabs", "caption" : "Spaces to Tabs" },
+            { "caption": "-" },
             { "command": "convert_chars_to_html", "caption" : "Chars to Html Entities" },
             { "command": "convert_html_to_chars", "caption" : "Html Entities to Chars" },
             { "caption": "-" },

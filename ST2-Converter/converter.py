@@ -1,13 +1,42 @@
 import sublime
 import sublime_plugin
-import time
-import htmlentitydefs
 import re
+import time
 import base64
+import htmlentitydefs
 from cgi import escape
 from hashlib import md5
-from dateutil.parser import parse
 from datetime import datetime
+from dateutil.parser import parse
+
+class ConvertTabsToSpacesCommand(sublime_plugin.TextCommand):
+    """Convert Tabs To Spaces"""
+    def run(self, edit):
+        sublime.status_message('Convert tabs to spaces.')
+        tab_size = int(self.view.settings().get('tab_size', 4))
+
+        for region in self.view.sel():
+            if not region.empty():
+                self.view.replace(edit, region, self.view.substr(region).expandtabs(tab_size))
+        else:
+            self.view.run_command('select_all')
+            self.view.replace(edit, self.view.sel()[0], self.view.substr(self.view.sel()[0]).expandtabs(tab_size))
+            self.view.sel().clear()
+
+
+class ConvertSpacesToTabsCommand(sublime_plugin.TextCommand):
+    """Convert Spaces To Tabs"""
+    def run(self, edit):
+        sublime.status_message('Convert spaces to tabs.')
+        tab_size = str(self.view.settings().get('tab_size', 4))
+
+        for region in self.view.sel():
+            if not region.empty():
+                self.view.replace(edit, region, re.sub(r' {' + tab_size + r'}', r'\t', self.view.substr(region)))
+        else:
+            self.view.run_command('select_all')
+            self.view.replace(edit, self.view.sel()[0], re.sub(r' {' + tab_size + r'}', r'\t', self.view.substr(self.view.sel()[0])))
+            self.view.sel().clear()
 
 
 class ConvertCharsToHtmlCommand(sublime_plugin.TextCommand):
@@ -78,7 +107,14 @@ class ConvertToBase64Command(sublime_plugin.TextCommand):
     def run(self, edit):
         for region in self.view.sel():
             if not region.empty():
-                self.view.replace(edit, region, base64.b64encode(self.view.substr(region).encode('utf-8')))
+                text = self.view.substr(region).encode(self.enc())
+                self.view.replace(edit, region, base64.b64encode(text))
+
+    def enc(self):
+        if self.view.encoding() == 'Undefined':
+            return self.view.settings().get('default_encoding', 'UTF-8')
+        else:
+            return self.view.encoding()
 
 
 class ConvertFromBase64Command(sublime_plugin.TextCommand):
@@ -87,10 +123,16 @@ class ConvertFromBase64Command(sublime_plugin.TextCommand):
         for region in self.view.sel():
             if not region.empty():
                 try:
-                    text = base64.b64decode(self.view.substr(region).encode('ascii', 'ignore'))
+                    text = base64.b64decode(self.view.substr(region).encode(self.enc()))
                     self.view.replace(edit, region, text.decode('utf-8'))
                 except:
-                    pass
+                    sublime.status_message('Convert error.')
+
+    def enc(self):
+        if self.view.encoding() == 'Undefined':
+            return self.view.settings().get('default_encoding', 'UTF-8')
+        else:
+            return self.view.encoding()
 
 
 class ConvertMd5Command(sublime_plugin.TextCommand):
@@ -98,8 +140,14 @@ class ConvertMd5Command(sublime_plugin.TextCommand):
     def run(self, edit):
         for region in self.view.sel():
             if not region.empty():
-                hash = md5(self.view.substr(region)).hexdigest()
-                self.view.replace(edit, region, hash)
+                text = self.view.substr(region).encode(self.enc())
+                self.view.replace(edit, region, md5(text).hexdigest())
+
+    def enc(self):
+        if self.view.encoding() == 'Undefined':
+            return self.view.settings().get('default_encoding', 'UTF-8')
+        else:
+            return self.view.encoding()
 
 
 class ConvertTimeFormatCommand(sublime_plugin.TextCommand):
@@ -129,7 +177,6 @@ class ConvertTimeFormatCommand(sublime_plugin.TextCommand):
 
 class InsertTimestampCommand(sublime_plugin.TextCommand):
     """This will allow you to insert timestamp to current position"""
-
     def run(self, edit):
         for region in self.view.sel():
             self.view.insert(edit, region.begin(), datetime.now().strftime("%Y-%m-%d %H:%M"))
